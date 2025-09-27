@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { FaBars, FaTimes } from "react-icons/fa";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
+ 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

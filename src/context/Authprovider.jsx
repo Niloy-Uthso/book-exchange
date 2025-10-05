@@ -52,6 +52,7 @@ const unsubscribe=onAuthStateChanged(auth,currentUser=>{
         signInwithgoogle,
         signIn,
         createUser
+        
 
 
     }

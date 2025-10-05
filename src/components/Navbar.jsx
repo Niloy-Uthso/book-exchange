@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { FaBars, FaTimes } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
- 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +20,8 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  const menuItems = (
+  // Middle Navigation
+  const navLinks = (
     <>
       <li>
         <Link to="/" onClick={handleLinkClick}>
@@ -47,21 +47,50 @@ const Navbar = () => {
           </Link>
         </li>
       )}
+    </>
+  );
+
+  // Auth Section (Right Side)
+  const authSection = (
+    <>
       {user ? (
-        <li>
+        <div className="flex items-center gap-3">
+          {/* Avatar with dropdown */}
+          <div className="relative group">
+            <img
+              src={user.photoURL}
+              alt="Profile"
+              className="w-9 h-9 rounded-full object-cover border-2 border-blue-500 cursor-pointer"
+            />
+            <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md p-3 hidden group-hover:block">
+              <p className="font-semibold">{user.displayName || "User"}</p>
+              <p className="text-sm text-gray-500">{user.email || ""}</p>
+            </div>
+          </div>
           <button
             onClick={handleLogout}
-            className="hover:text-red-600 duration-200"
+            className="hover:text-red-600 duration-200 font-medium"
           >
             Logout
           </button>
-        </li>
+        </div>
       ) : (
-        <li>
-          <Link to="/login" onClick={handleLinkClick}>
+        <div className="flex items-center gap-4">
+          <Link
+            to="/login"
+            onClick={handleLinkClick}
+            className="text-blue-600 font-semibold hover:underline"
+          >
             Login
           </Link>
-        </li>
+          <Link
+            to="/register"
+            onClick={handleLinkClick}
+            className="px-4 py-1.5 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition"
+          >
+            Register
+          </Link>
+        </div>
       )}
     </>
   );
@@ -84,26 +113,15 @@ const Navbar = () => {
             BookExchange
           </Link>
 
-          {/* Desktop Menu */}
+          {/* Middle Navigation */}
           <ul className="hidden md:flex space-x-6 items-center text-gray-700 font-medium">
-            {menuItems}
-
-            {/* User Avatar */}
-            {user?.photoURL && (
-              <div className="relative group">
-                <img
-                  src={user.photoURL}
-                  alt="Profile"
-                  className="w-9 h-9 rounded-full object-cover border-2 border-blue-500 cursor-pointer"
-                />
-                {/* Hover Dropdown */}
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md p-3 hidden group-hover:block">
-                  <p className="font-semibold">{user.displayName || "User"}</p>
-                  <p className="text-sm text-gray-500">{user.email || ""}</p>
-                </div>
-              </div>
-            )}
+            {navLinks}
           </ul>
+
+          {/* Right Auth Section */}
+          <div className="hidden md:flex items-center space-x-4 text-gray-700 font-medium">
+            {authSection}
+          </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
@@ -118,18 +136,8 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
           <ul className="flex flex-col items-start p-4 gap-3 text-gray-700 font-medium">
-            {menuItems}
-            {user?.photoURL && (
-              <div className="mt-2">
-                <img
-                  src={user.photoURL}
-                  alt="Profile"
-                  className="w-10 h-10 rounded-full border-2 border-blue-500"
-                />
-                <p className="font-semibold">{user.displayName || "User"}</p>
-                <p className="text-sm text-gray-500">{user.email || ""}</p>
-              </div>
-            )}
+            {navLinks}
+            <div className="mt-2">{authSection}</div>
           </ul>
         </div>
       )}

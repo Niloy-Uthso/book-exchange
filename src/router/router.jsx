@@ -6,6 +6,7 @@ import AuthLayout from "../layout/AuthLayout";
 import Register from "../pages/authentication/RegisTer";
 import Login from "../pages/authentication/LogIn";
 import DashboardLayout from "../layout/DashboardLayout";
+import AddBook from "../pages/Dashboard/AddBook";
 
 export const router = createBrowserRouter([
   {
@@ -18,8 +19,14 @@ export const router = createBrowserRouter([
         },
         {
           path:"dashboard",
-           Component:DashboardLayout
-         
+           Component:DashboardLayout,
+         children:[
+          {
+            path:"/dashboard/add-book",
+            Component:AddBook,
+
+          }
+         ]
         }
     ]
 

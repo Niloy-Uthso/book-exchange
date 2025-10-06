@@ -7,6 +7,8 @@ import Register from "../pages/authentication/RegisTer";
 import Login from "../pages/authentication/LogIn";
 import DashboardLayout from "../layout/DashboardLayout";
 import AddBook from "../pages/Dashboard/AddBook";
+import MyBooks from "../pages/Dashboard/MyBooks";
+import BookDetails from "../pages/BookDetails";
 
 export const router = createBrowserRouter([
   {
@@ -25,8 +27,16 @@ export const router = createBrowserRouter([
             path:"/dashboard/add-book",
             Component:AddBook,
 
+          },
+          {
+            path:"/dashboard/my-books",
+            Component:MyBooks
           }
          ]
+        },
+        {
+          path:"/book/:id",
+          Component:BookDetails
         }
     ]
 

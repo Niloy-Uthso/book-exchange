@@ -1,26 +1,28 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const AddBook = () => {
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-
+ const { user } = useAuth();
   const onSubmit = async (data) => {
     try {
       setLoading(true);
       setMessage("");
 
       // simulate current user email (later you'll take it from auth context)
-      const userEmail = "testuser@example.com";
+      const userEmail = user?.email ;
 
       const bookData = {
         name: data.name,
         writer: data.writer,
         edition: data.edition,
         image: data.image,
-        email: userEmail,
+        owneremail: userEmail,
+        status: "available",
         messages: [], // empty initially
       };
 

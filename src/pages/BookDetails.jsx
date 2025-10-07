@@ -26,16 +26,33 @@ const BookDetails = () => {
     fetchBook();
   }, [id]);
 
-  const handleRequestBook = async () => {
-    try {
-      setMessage("");
-      // For now just show a message — later you’ll update the backend
-      setMessage(`📩 Request sent to ${book.owneremail}`);
-    } catch (error) {
-      console.error("Request failed:", error);
-      setMessage("❌ Failed to send request.");
-    }
-  };
+const handleRequestBook = async () => {
+  try {
+    setMessage("");
+    
+    // Create requester data object
+    const requesterData = {
+      name: user.displayName || user.email, // Use displayName or fallback to email
+      email: user.email,
+      photo: user.photoURL || "https://i.ibb.co/3m1pM7n/default-avatar.png",
+      requestedAt: new Date().toISOString()
+    };
+
+    // Update the book in backend - add to requestedby array
+    await axios.patch(`http://localhost:5000/allbooks/${book._id}`, {
+      $push: { requestedby: requesterData }
+    });
+
+    setMessage(`📩 Request sent to ${book.owneremail}`);
+    
+    // Optional: Refresh book data to get updated requestedby array
+    // fetchBookDetails(); 
+    
+  } catch (error) {
+    console.error("Request failed:", error);
+    setMessage("❌ Failed to send request.");
+  }
+};
 
   if (loading) return <p className="text-center mt-10">Loading book details...</p>;
   if (!book) return <p className="text-center mt-10">Book not found.</p>;

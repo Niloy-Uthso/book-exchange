@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { updateProfile } from "firebase/auth";
+import axios from "axios";
  
 
 const Register = () => {
@@ -28,6 +29,14 @@ const Register = () => {
     photoURL:photoURL
   })
       console.log("✅ Registered:", result.user);
+      
+      const newUser = {
+      name,
+      email,
+      photo: photoURL || "https://i.ibb.co/3m1pM7n/default-avatar.png",
+    };
+
+    await axios.post("http://localhost:5000/users", newUser);
       form.reset();
       navigate("/");
     } catch (err) {

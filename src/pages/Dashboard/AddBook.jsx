@@ -24,6 +24,7 @@ const AddBook = () => {
         owneremail: userEmail,
         status: "available",
         messages: [], // empty initially
+         requestedby: []
       };
 
       const res = await axios.post("http://localhost:5000/allbooks", bookData);

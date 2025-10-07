@@ -9,7 +9,8 @@ import DashboardLayout from "../layout/DashboardLayout";
 import AddBook from "../pages/Dashboard/AddBook";
 import MyBooks from "../pages/Dashboard/MyBooks";
 import BookDetails from "../pages/BookDetails";
-import Messages from "../pages/Dashboard/Messages";
+import AllBooks from "../pages/Allbooks";
+ 
 
 export const router = createBrowserRouter([
   {
@@ -33,15 +34,16 @@ export const router = createBrowserRouter([
             path:"/dashboard/my-books",
             Component:MyBooks
           },
-          {
-             path: "/dashboard/messages",
-             Component:Messages
-          }
+ 
          ]
         },
         {
           path:"/book/:id",
           Component:BookDetails
+        },
+        {
+          path:"/allbooks",
+          Component:AllBooks
         }
     ]
 

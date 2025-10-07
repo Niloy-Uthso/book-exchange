@@ -29,7 +29,7 @@ const Navbar = () => {
         </Link>
       </li>
       <li>
-        <Link to="/books" onClick={handleLinkClick}>
+        <Link to="/allbooks" onClick={handleLinkClick}>
           All Books
         </Link>
       </li>

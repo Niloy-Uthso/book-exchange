@@ -9,7 +9,8 @@ import {
   Home,
   ChevronLeft,
   ChevronRight,
-  PlusSquare, // new icon for Add Book
+  PlusSquare,
+  BookCopy, // new icon for Add Book
 } from "lucide-react";
 
 const DashboardLayout = () => {
@@ -36,6 +37,11 @@ const DashboardLayout = () => {
       path: "/dashboard/exchange-requests",
       label: "Exchange Requests",
       icon: <Repeat size={20} />,
+    },
+    {
+        path: "/dashboard/borrowed-books",
+      label: "Borrowed Books",
+      icon: <BookCopy size={20} />,
     },
     {
       path: "/dashboard/messages",

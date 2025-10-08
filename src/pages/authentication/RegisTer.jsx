@@ -34,6 +34,7 @@ const Register = () => {
       name,
       email,
       photo: photoURL || "https://i.ibb.co/3m1pM7n/default-avatar.png",
+      borrowedbookid:[]
     };
 
     await axios.post("http://localhost:5000/users", newUser);

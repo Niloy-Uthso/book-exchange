@@ -11,6 +11,7 @@ import MyBooks from "../pages/Dashboard/MyBooks";
 import BookDetails from "../pages/BookDetails";
 import AllBooks from "../pages/Allbooks";
 import ExchangeRequests from "../pages/Dashboard/ExchangeRequests";
+import BorrowedBooks from "../pages/Dashboard/BorrowedBooks";
  
 
 export const router = createBrowserRouter([
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
           {
             path:"/dashboard/exchange-requests",
             Component:ExchangeRequests
+          },
+          {
+            path:"/dashboard/borrowed-books",
+            Component:BorrowedBooks
           }
  
          ]

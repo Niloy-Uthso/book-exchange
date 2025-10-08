@@ -34,46 +34,51 @@ const ExchangeRequests = () => {
   );
 
   const handleApproveRequest = async (bookId, requesterEmail, event) => {
-    try {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      
-      setMessage("");
-      
-      // Update the UI instantly - only change status and currenthand
-      setMyBooks(prevBooks => 
-        prevBooks.map(book => 
-          book._id === bookId 
-            ? { 
-                ...book, 
-                status: "exchanged",
-                currenthand: requesterEmail
-                // Keep all requestedby data - don't remove anyone
-              }
-            : book
-        )
-      );
-
-      // Then make the API call
-      await axios.patch(`http://localhost:5000/allbooks/${bookId}`, {
-        $set: { 
-          status: "exchanged",
-          currenthand: requesterEmail
-        }
-        // Don't pull from requestedby - keep all requests
-      });
-
-      setMessage(`✅ Request approved! Book given to ${requesterEmail}`);
-      
-    } catch (error) {
-      console.error("Error approving request:", error);
-      setMessage("❌ Failed to approve request");
-      // Revert UI changes if API call fails
-      fetchMyBooks();
+  try {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
     }
-  };
+
+    setMessage("");
+
+    // instantly optimistic UI update
+    setMyBooks(prevBooks =>
+      prevBooks.map(book =>
+        book._id === bookId
+          ? {
+              ...book,
+              status: "exchanged",
+              currenthand: requesterEmail,
+            }
+          : book
+      )
+    );
+
+    // 1) Update the book document
+    await axios.patch(`http://localhost:5000/allbooks/${bookId}`, {
+      $set: {
+        status: "exchanged",
+        currenthand: requesterEmail,
+      },
+    });
+
+    // 2) Add the bookId to requester's borrowedbookid array (use $addToSet to avoid duplicates)
+    // NOTE: We assume bookId is a string representing the ObjectId.
+    await axios.patch(`http://localhost:5000/users/${encodeURIComponent(requesterEmail)}/borrowed`, {
+      bookId, // backend will decide whether to store as ObjectId or string
+    });
+
+    setMessage(`✅ Request approved! Book given to ${requesterEmail}`);
+  } catch (error) {
+    console.error("Error approving request:", error);
+    setMessage("❌ Failed to approve request");
+
+    // revert UI by refetching
+    fetchMyBooks();
+  }
+};
+
 
   const handleRejectRequest = async (bookId, requesterEmail, event) => {
     try {

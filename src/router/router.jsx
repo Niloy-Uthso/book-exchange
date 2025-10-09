@@ -12,6 +12,7 @@ import BookDetails from "../pages/BookDetails";
 import AllBooks from "../pages/Allbooks";
 import ExchangeRequests from "../pages/Dashboard/ExchangeRequests";
 import BorrowedBooks from "../pages/Dashboard/BorrowedBooks";
+import PrivateRoute from "../components/PrivateRoute";
  
 
 export const router = createBrowserRouter([
@@ -25,7 +26,10 @@ export const router = createBrowserRouter([
         },
         {
           path:"dashboard",
-           Component:DashboardLayout,
+                  element: 
+          <PrivateRoute>
+            <DashboardLayout></DashboardLayout>
+          </PrivateRoute>,
          children:[
           {
             path:"/dashboard/add-book",
@@ -49,7 +53,11 @@ export const router = createBrowserRouter([
         },
         {
           path:"/book/:id",
-          Component:BookDetails
+           element:<PrivateRoute>
+            <BookDetails></BookDetails>
+           </PrivateRoute>
+          
+          // BookDetails
         },
         {
           path:"/allbooks",

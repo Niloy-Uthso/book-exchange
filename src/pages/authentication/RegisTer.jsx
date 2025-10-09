@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { updateProfile } from "firebase/auth";
 import axios from "axios";
@@ -8,7 +8,10 @@ import axios from "axios";
 const Register = () => {
   const {   createUser, signInwithgoogle } = useAuth();
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+   
+const navigate = useNavigate();
+  const location = useLocation();
+ const from = location.state?.from || "/";
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -39,7 +42,7 @@ const Register = () => {
 
     await axios.post("http://localhost:5000/users", newUser);
       form.reset();
-      navigate("/");
+      navigate(from);
     } catch (err) {
       setError(err.message);
     }
@@ -48,7 +51,7 @@ const Register = () => {
   const handleGoogleLogin = async () => {
     try {
       await  signInwithgoogle();
-      navigate("/");
+      navigate(from);
     } catch (err) {
       setError(err.message);
     }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { FaGoogle } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 // import useAuth from "../hooks/useAuth";
@@ -8,7 +8,10 @@ const Login = () => {
   const { signIn, googleLogin } = useAuth();
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+   
+  const location = useLocation();
+  const from = location.state?.from || "/";
+ 
   const handleLogin = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -16,7 +19,7 @@ const Login = () => {
 
     try {
       await signIn(email, password);
-      navigate("/");
+      navigate(from);
     } catch (err) {
       setError("Invalid email or password");
       console.error(err);

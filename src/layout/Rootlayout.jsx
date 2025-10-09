@@ -7,7 +7,9 @@ const Rootlayout = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <Outlet></Outlet>
+            <div className="mb-20"> {/* Add this wrapper with margin-bottom */}
+  <Outlet></Outlet>
+</div>
             <Footer></Footer>
         </div>
     );

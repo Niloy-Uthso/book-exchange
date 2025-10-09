@@ -33,7 +33,7 @@ const ExchangeRequests = () => {
     book => book.requestedby && book.requestedby.length > 0
   );
 
-  const handleApproveRequest = async (bookId, requesterEmail, event) => {
+const handleApproveRequest = async (bookId, requesterEmail, event) => {
   try {
     if (event) {
       event.preventDefault();
@@ -42,7 +42,7 @@ const ExchangeRequests = () => {
 
     setMessage("");
 
-    // instantly optimistic UI update
+    // FIXED: Optimistic UI update - remove the requester AND update status
     setMyBooks(prevBooks =>
       prevBooks.map(book =>
         book._id === bookId
@@ -50,6 +50,7 @@ const ExchangeRequests = () => {
               ...book,
               status: "exchanged",
               currenthand: requesterEmail,
+              requestedby: book.requestedby.filter(req => req.email !== requesterEmail) // ADD THIS LINE
             }
           : book
       )
@@ -61,13 +62,16 @@ const ExchangeRequests = () => {
         status: "exchanged",
         currenthand: requesterEmail,
       },
+      $pull: {
+        requestedby: { email: requesterEmail },
+      },
     });
 
-    // 2) Add the bookId to requester's borrowedbookid array (use $addToSet to avoid duplicates)
-    // NOTE: We assume bookId is a string representing the ObjectId.
-    await axios.patch(`http://localhost:5000/users/${encodeURIComponent(requesterEmail)}/borrowed`, {
-      bookId, // backend will decide whether to store as ObjectId or string
-    });
+    // 2) Add the bookId to requester's borrowedbookid array
+    await axios.patch(
+      `http://localhost:5000/users/${requesterEmail}/add-borrowed-book`,
+      { bookId }
+    );
 
     setMessage(`✅ Request approved! Book given to ${requesterEmail}`);
   } catch (error) {

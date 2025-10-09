@@ -33,13 +33,7 @@ const Navbar = () => {
           All Books
         </Link>
       </li>
-      {user && (
-        <li>
-          <Link to="/my-books" onClick={handleLinkClick}>
-            My Books
-          </Link>
-        </li>
-      )}
+      
       {user && (
         <li>
           <Link to="/dashboard" onClick={handleLinkClick}>

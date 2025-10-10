@@ -123,6 +123,9 @@ const BookDetails = () => {
           <p className="text-gray-700 mb-1"><span className="font-medium">Edition:</span> {book.edition}</p>
           <p className="text-gray-700 mb-1"><span className="font-medium">Status:</span> {book.status}</p>
           {/* <p className="text-gray-700 mb-3"><span className="font-medium">Owner Email:</span> {book.owneremail}</p> */}
+          {
+            (user?.email === book?.owneremail) &&  <p className="text-gray-700 mb-3"><span className="font-medium">Current Hand:</span> {book?.currenthand  || "N/A"}</p>
+          }
    {
     (user?.email === book?.owneremail) ? <p className="text-gray-700 mb-3"><span className="font-medium">Owner Email:</span>  Your Book</p> : <p className="text-gray-700 mb-3"><span className="font-medium">Owner Email:</span> {book.owneremail}</p>
    }

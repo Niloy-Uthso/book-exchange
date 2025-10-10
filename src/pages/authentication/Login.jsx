@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { FaGoogle } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 // import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-  const { signIn, googleLogin } = useAuth();
+  const { signIn, signInwithgoogle, } = useAuth();
   const [error, setError] = useState("");
   const navigate = useNavigate();
    
@@ -27,13 +28,28 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async () => {
-    try {
-      await googleLogin();
-      navigate("/");
-    } catch (err) {
-      console.error("Google login error:", err);
-    }
-  };
+  try {
+    const result = await signInwithgoogle();
+    const user = result.user;
+
+    // prepare user info
+    const userInfo = {
+      name: user.displayName,
+      email: user.email,
+      photo: user.photoURL,
+       borrowedbookid:[]
+    };
+    console.log(userInfo)
+
+    // send to backend
+    await axios.post("http://localhost:5000/users", userInfo);
+
+    // redirect after success
+    navigate(from || "/");
+  } catch (err) {
+    setError(err.message);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 px-4 py-12">

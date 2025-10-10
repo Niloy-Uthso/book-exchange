@@ -43,11 +43,7 @@ const DashboardLayout = () => {
       label: "Borrowed Books",
       icon: <BookCopy size={20} />,
     },
-    {
-      path: "/dashboard/messages",
-      label: "Messages",
-      icon: <MessageSquare size={20} />,
-    },
+     
   ];
 
   return (

@@ -3,6 +3,7 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth"; // assuming you already have this
 import { Link } from "react-router";
 import { Pencil, Trash2, Eye } from "lucide-react";
+import Swal from "sweetalert2";
 
 const MyBooks = () => {
   const { user } = useAuth();
@@ -27,14 +28,37 @@ const MyBooks = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = confirm("Are you sure you want to delete this book?");
-    if (!confirmDelete) return;
+    
 
     try {
-      await axios.delete(`http://localhost:5000/allbooks/${id}`);
+       const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      reverseButtons: true
+    });
+
+    if (!result.isConfirmed) return;
+
+      await axios.delete(`http://localhost:5000/allbooks/${id}?email=${user.email}`);
+         Swal.fire(
+      'Deleted!',
+      'Your book has been deleted.',
+      'success'
+    );
       setBooks(books.filter((book) => book._id !== id));
     } catch (error) {
-      console.error("Error deleting book:", error);
+      console.log("eror", error)
+       Swal.fire(
+      'Error!',
+      'Failed to delete the book.',
+      'error'
+    );
     }
   };
 

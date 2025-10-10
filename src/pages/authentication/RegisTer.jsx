@@ -25,7 +25,7 @@ const navigate = useNavigate();
 
     try {
       const result = await   createUser(email, password);
-    //   await updateUserProfile({ displayName: name, photoURL });
+    ;
 
   await  updateProfile(result.user,{
     displayName:name,
@@ -48,14 +48,31 @@ const navigate = useNavigate();
     }
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      await  signInwithgoogle();
-      navigate(from);
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+ const handleGoogleLogin = async () => {
+  try {
+    const result = await signInwithgoogle();
+     console.log(result)
+    const user = result.user;
+
+    // prepare user info
+    const userInfo = {
+      name: user.displayName,
+      email: user.email,
+      photo: user.photoURL,
+       borrowedbookid:[]
+    };
+
+    // send to backend
+    await axios.post("http://localhost:5000/users", userInfo);
+
+    // redirect after success
+    navigate(from || "/");
+  } catch (err) {
+    console.log("lkjfejfejrf")
+    setError(err.message);
+  }
+};
+
 
   return (
     <div className="min-h-screen  flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 px-4 py-12">

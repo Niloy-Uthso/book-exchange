@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const AddBook = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -29,8 +30,16 @@ const AddBook = () => {
 
       const res = await axios.post("http://localhost:5000/allbooks", bookData);
       if (res.data.insertedId) {
+          Swal.fire({
+        title: "Book Added!",
+        text: "Your book has been successfully added to the collection.",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK",
+      });
         setMessage("✅ Book added successfully!");
         reset();
+         
       }
     } catch (error) {
       console.error(error);

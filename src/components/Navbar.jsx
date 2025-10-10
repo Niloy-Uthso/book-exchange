@@ -100,11 +100,11 @@ const Navbar = () => {
             onClick={handleLinkClick}
           >
             <img
-              src="https://i.ibb.co/8PptbL2/book-logo.png"
-              alt="BookExchange"
+              src="https://i.ibb.co.com/Ng8yDYmL/images-q-tbn-ANd9-Gc-RBMar0-A-r-KXcp9e0-X2974-Tq-IRq1-HXb01-OD7-A-s.jpg"
+              alt="BookSwap"
               className="h-8 w-8 object-cover"
             />
-            BookExchange
+           BookSwap
           </Link>
 
           {/* Middle Navigation */}

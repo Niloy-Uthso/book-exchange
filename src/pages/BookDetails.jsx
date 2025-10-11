@@ -21,7 +21,7 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/allbooks/${id}`);
+        const res = await axios.get(`https://book-exchange-backend-alpha.vercel.app/allbooks/${id}`);
         setBook(res.data);
       } catch (error) {
         console.error("Error fetching book details:", error);
@@ -46,7 +46,7 @@ const BookDetails = () => {
     };
 
     // Update the book in backend - add to requestedby array
-    await axios.patch(`http://localhost:5000/allbooks/${book._id}`, {
+    await axios.patch(`https://book-exchange-backend-alpha.vercel.app/allbooks/${book._id}`, {
       $push: { requestedby: requesterData }
     });
 

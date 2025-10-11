@@ -39,10 +39,10 @@ const Login = () => {
       photo: user.photoURL,
        borrowedbookid:[]
     };
-    console.log(userInfo)
+     
 
     // send to backend
-    await axios.post("http://localhost:5000/users", userInfo);
+    await axios.post("https://book-exchange-backend-alpha.vercel.app/users", userInfo);
 
     // redirect after success
     navigate(from || "/");

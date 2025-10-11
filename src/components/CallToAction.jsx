@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 const CallToAction = () => {
   return (
-    <section className="bg-gradient-to-r from-blue-600 to-indigo-700 py-20 text-center text-white">
+    <section className="bg-gradient-to-r from-blue-600 to-indigo-700 py-20 text-center  mx-4 rounded-2xl my-8 text-white">
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold mb-4">
           Join Our Book Exchange Community Today!

@@ -31,7 +31,7 @@ const navigate = useNavigate();
     displayName:name,
     photoURL:photoURL
   })
-      console.log("✅ Registered:", result.user);
+      ("✅ Registered:", result.user);
       
       const newUser = {
       name,
@@ -40,7 +40,7 @@ const navigate = useNavigate();
       borrowedbookid:[]
     };
 
-    await axios.post("http://localhost:5000/users", newUser);
+    await axios.post("https://book-exchange-backend-alpha.vercel.app/users", newUser);
       form.reset();
       navigate(from);
     } catch (err) {
@@ -51,7 +51,7 @@ const navigate = useNavigate();
  const handleGoogleLogin = async () => {
   try {
     const result = await signInwithgoogle();
-     console.log(result)
+    
     const user = result.user;
 
     // prepare user info
@@ -63,12 +63,12 @@ const navigate = useNavigate();
     };
 
     // send to backend
-    await axios.post("http://localhost:5000/users", userInfo);
+    await axios.post("https://book-exchange-backend-alpha.vercel.app/users", userInfo);
 
     // redirect after success
     navigate(from || "/");
   } catch (err) {
-    console.log("lkjfejfejrf")
+     
     setError(err.message);
   }
 };

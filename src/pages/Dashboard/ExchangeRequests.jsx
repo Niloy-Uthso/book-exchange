@@ -18,7 +18,7 @@ const ExchangeRequests = () => {
   const fetchMyBooks = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/allbooks?email=${user.email}`);
+      const res = await axios.get(`https://book-exchange-backend-alpha.vercel.app/allbooks?email=${user.email}`);
       setMyBooks(res.data);
     } catch (error) {
       console.error("Error fetching books:", error);
@@ -57,7 +57,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
     );
 
     // 1) Update the book document
-    await axios.patch(`http://localhost:5000/allbooks/${bookId}`, {
+    await axios.patch(`https://book-exchange-backend-alpha.vercel.app/allbooks/${bookId}`, {
       $set: {
         status: "exchanged",
         currenthand: requesterEmail,
@@ -69,7 +69,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
 
     // 2) Add the bookId to requester's borrowedbookid array
     await axios.patch(
-      `http://localhost:5000/users/${requesterEmail}/add-borrowed-book`,
+      `https://book-exchange-backend-alpha.vercel.app/users/${requesterEmail}/add-borrowed-book`,
       { bookId }
     );
 
@@ -105,7 +105,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
         )
       );
 
-      await axios.patch(`http://localhost:5000/allbooks/${bookId}`, {
+      await axios.patch(`https://book-exchange-backend-alpha.vercel.app/allbooks/${bookId}`, {
         $pull: { requestedby: { email: requesterEmail } }
       });
 

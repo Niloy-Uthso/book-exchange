@@ -17,7 +17,7 @@ const AllBooks = () => {
   const fetchAllBooks = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/allbooks");
+      const res = await axios.get("https://book-exchange-backend-alpha.vercel.app/allbooks");
       setBooks(res.data);
       setError("");
     } catch (error) {

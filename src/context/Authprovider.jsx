@@ -27,7 +27,7 @@ const [loading, setLoading]=useState(true)
 
     const signInwithgoogle=()=>{
         setLoading(true);
-        console.log("here")
+        ("here")
         return signInWithPopup(auth, googleAuthProvider)
     }
 

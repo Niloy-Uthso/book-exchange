@@ -24,11 +24,11 @@ const AddBook = () => {
         image: data.image,
         owneremail: userEmail,
         status: "available",
-        messages: [], // empty initially
+        messages: [], 
          requestedby: []
       };
 
-      const res = await axios.post("http://localhost:5000/allbooks", bookData);
+      const res = await axios.post("https://book-exchange-backend-alpha.vercel.app/allbooks", bookData);
       if (res.data.insertedId) {
           Swal.fire({
         title: "Book Added!",

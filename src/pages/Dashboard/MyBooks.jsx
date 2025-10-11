@@ -19,7 +19,7 @@ const MyBooks = () => {
   const fetchMyBooks = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/allbooks?email=${user.email}`
+        `https://book-exchange-backend-alpha.vercel.app/allbooks?email=${user.email}`
       );
       setBooks(res.data);
     } catch (error) {
@@ -45,7 +45,7 @@ const MyBooks = () => {
 
     if (!result.isConfirmed) return;
 
-      await axios.delete(`http://localhost:5000/allbooks/${id}?email=${user.email}`);
+      await axios.delete(`https://book-exchange-backend-alpha.vercel.app/allbooks/${id}?email=${user.email}`);
          Swal.fire(
       'Deleted!',
       'Your book has been deleted.',
@@ -53,7 +53,7 @@ const MyBooks = () => {
     );
       setBooks(books.filter((book) => book._id !== id));
     } catch (error) {
-      console.log("eror", error)
+      ("eror", error)
        Swal.fire(
       'Error!',
       'Failed to delete the book.',

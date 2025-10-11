@@ -17,7 +17,7 @@ const EditBookDetail = () => {
 
   const fetchBook = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/allbooks/${id}`);
+      const res = await axios.get(`https://book-exchange-backend-alpha.vercel.app/allbooks/${id}`);
       if (res.data.owneremail !== user.email) {
         toast.error("Access denied! You can only edit your own books.");
         return navigate("/dashboard/my-books");
@@ -38,7 +38,7 @@ const EditBookDetail = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`http://localhost:5000/allbooks-edit/${id}?email=${user.email}`, {
+      await axios.patch(`https://book-exchange-backend-alpha.vercel.app/allbooks-edit/${id}?email=${user.email}`, {
         $set: {
           name: book.name,
           writer: book.writer,

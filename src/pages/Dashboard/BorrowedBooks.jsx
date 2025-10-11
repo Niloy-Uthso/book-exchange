@@ -9,13 +9,13 @@ const BorrowedBooks = () => {
 const {user} = useAuth()
   // ✅ Fetch borrowed books for the logged-in user
   const fetchBorrowedBooks = async () => {
-    console.log("sjkdkshdfkjj")
+    ("sjkdkshdfkjj")
     try {
       setLoading(true);
       const res = await axios.get(
-        `http://localhost:5000/users/${user.email}/borrowed-books`
+        `https://book-exchange-backend-alpha.vercel.app/users/${user.email}/borrowed-books`
       );
-      console.log("📚 Backend response:", res.data);
+      ("📚 Backend response:", res.data);
       setBorrowedBooks(res.data);
     } catch (err) {
       console.error("Error fetching borrowed books:", err);
@@ -29,11 +29,11 @@ const {user} = useAuth()
   const handleReturnBook = async (bookId) => {
     try {
       await axios.patch(
-        `http://localhost:5000/users/${user.email}/return-book`,
+        `https://book-exchange-backend-alpha.vercel.app/users/${user.email}/return-book`,
         { bookId }
       );
       toast.success("Book returned successfully!");
-      fetchBorrowedBooks(); // refresh list
+      fetchBorrowedBooks(); 
     } catch (err) {
       console.error("Error returning book:", err);
       toast.error("Failed to return book.");
@@ -41,12 +41,12 @@ const {user} = useAuth()
   };
 
   useEffect(() => {
-    console.log("👤 Current user:", user);
+    ("👤 Current user:", user);
     if (user?.email) {
-      console.log("📧 Email found, fetching books...");
+      ("📧 Email found, fetching books...");
       fetchBorrowedBooks();
     } else {
-      console.log("⚠️ No email found");
+      ("⚠️ No email found");
       setLoading(false);
     }
   }, [user]);

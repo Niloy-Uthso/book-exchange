@@ -8,8 +8,8 @@ const navigate = useNavigate();
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/allbooks");
-        // Take only first 12 books
+        const res = await axios.get("https://book-exchange-backend-alpha.vercel.app/allbooks");
+         
         setBooks(res.data.slice(0, 12));
       } catch (error) {
         console.error("Error fetching books:", error);
@@ -21,12 +21,12 @@ const navigate = useNavigate();
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        {/* Heading */}
+         
         <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
           Explore Our Latest Books
         </h2>
 
-        {/* Books Grid */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {books.map((book) => (
             <div
@@ -66,7 +66,7 @@ const navigate = useNavigate();
           ))}
         </div>
 
-        {/* See All Books Button */}
+        
         <div className="flex justify-center mt-10">
           <Link
             to="/allbooks"

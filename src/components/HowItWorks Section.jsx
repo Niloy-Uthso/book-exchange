@@ -22,13 +22,13 @@ const HowItWorks = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4 text-center">
-        {/* Heading */}
+         
         <h2 className="text-3xl font-bold text-gray-800 mb-4">How It Works</h2>
         <p className="text-gray-500 mb-12 max-w-2xl mx-auto">
           Share, borrow, and exchange books effortlessly. Here's how our platform makes it simple and fun!
         </p>
 
-        {/* Steps Grid */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {steps.map((step, index) => (
             <div

@@ -20,7 +20,7 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  // Middle Navigation
+  
   const navLinks = (
     <>
       <li>
@@ -44,12 +44,12 @@ const Navbar = () => {
     </>
   );
 
-  // Auth Section (Right Side)
+   
   const authSection = (
     <>
       {user ? (
         <div className="flex items-center gap-3">
-          {/* Avatar with dropdown */}
+           
           <div className="relative group">
             <img
               src={user.photoURL}
@@ -93,7 +93,7 @@ const Navbar = () => {
     <nav className="w-full bg-white shadow-md sticky top-0 z-50 border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+           
           <Link
             to="/"
             className="flex items-center gap-2 font-bold text-xl text-blue-600"
@@ -107,17 +107,17 @@ const Navbar = () => {
            BookSwap
           </Link>
 
-          {/* Middle Navigation */}
+           
           <ul className="hidden md:flex space-x-6 items-center text-gray-700 font-medium">
             {navLinks}
           </ul>
 
-          {/* Right Auth Section */}
+           
           <div className="hidden md:flex items-center space-x-4 text-gray-700 font-medium">
             {authSection}
           </div>
 
-          {/* Mobile Menu Button */}
+           
           <div className="md:hidden">
             <button onClick={() => setIsOpen(!isOpen)} className="text-2xl">
               {isOpen ? <FaTimes /> : <FaBars />}
@@ -126,7 +126,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
+       
       {isOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
           <ul className="flex flex-col items-start p-4 gap-3 text-gray-700 font-medium">

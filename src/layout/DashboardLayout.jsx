@@ -4,13 +4,13 @@ import {
   Menu,
   X,
   BookOpen,
-  MessageSquare,
+   
   Repeat,
   Home,
   ChevronLeft,
   ChevronRight,
   PlusSquare,
-  BookCopy, // new icon for Add Book
+  BookCopy,  
 } from "lucide-react";
 
 const DashboardLayout = () => {

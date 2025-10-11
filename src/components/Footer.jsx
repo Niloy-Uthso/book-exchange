@@ -65,7 +65,7 @@ Violation of these terms may result in account suspension.`,
   return (
     <footer className="bg-gray-900 text-gray-300 py-12 relative">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
-        {/* Brand Section */}
+         
         <div>
           <div className="flex items-center gap-2 mb-4">
             <BookOpen size={28} className="text-blue-500" />
@@ -77,7 +77,7 @@ Violation of these terms may result in account suspension.`,
           </p>
         </div>
 
-        {/* Quick Links */}
+       
         <div>
           <h4 className="text-lg font-semibold text-white mb-3">
             Quick Links
@@ -90,7 +90,7 @@ Violation of these terms may result in account suspension.`,
           </ul>
         </div>
 
-        {/* Support Links */}
+        
         <div>
           <h4 className="text-lg font-semibold text-white mb-3">Support</h4>
           <ul className="space-y-2">
@@ -121,7 +121,7 @@ Violation of these terms may result in account suspension.`,
           </ul>
         </div>
 
-        {/* Contact Section */}
+         
         <div>
           <h4 className="text-lg font-semibold text-white mb-3">Get in Touch</h4>
           <p className="text-sm mb-3 flex items-center gap-2">
@@ -137,7 +137,7 @@ Violation of these terms may result in account suspension.`,
         </div>
       </div>
 
-      {/* Bottom Bar */}
+    
       <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-500">
         © {new Date().getFullYear()}{" "}
         <span className="text-blue-400 font-semibold">BookSwap</span>. All rights reserved.

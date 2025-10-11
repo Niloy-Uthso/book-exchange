@@ -14,12 +14,14 @@ import ExchangeRequests from "../pages/Dashboard/ExchangeRequests";
 import BorrowedBooks from "../pages/Dashboard/BorrowedBooks";
 import PrivateRoute from "../components/PrivateRoute";
 import EditBookDetail from "../pages/Dashboard/EditBookDetail";
+import ErrorPage from "../pages/ErrorPage";
  
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component:Rootlayout,
+    errorElement:<ErrorPage></ErrorPage>,
     children:[
         {
             index:true,
@@ -68,7 +70,7 @@ export const router = createBrowserRouter([
             <BookDetails></BookDetails>
            </PrivateRoute>
           
-          // BookDetails
+           
         },
         {
           path:"/allbooks",
@@ -80,6 +82,7 @@ export const router = createBrowserRouter([
   {
     path:"/",
     Component:AuthLayout,
+    errorElement:<ErrorPage></ErrorPage>,
     children:[
       {
         path:"/register",

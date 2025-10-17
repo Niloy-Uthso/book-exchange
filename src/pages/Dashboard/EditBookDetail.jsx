@@ -11,6 +11,13 @@ const EditBookDetail = () => {
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
 
+   useEffect(() => {
+    window.scrollTo({
+      top: 300,  
+      behavior: "smooth", 
+    });
+  }, []);
+
   useEffect(() => {
     fetchBook();
   }, []);

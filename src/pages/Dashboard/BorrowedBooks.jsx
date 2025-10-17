@@ -2,20 +2,26 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import { motion } from "framer-motion";
 
 const BorrowedBooks = () => {
   const [borrowedBooks, setBorrowedBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-const {user} = useAuth()
-  // ✅ Fetch borrowed books for the logged-in user
+  const { user } = useAuth();
+
+   useEffect(() => {
+    window.scrollTo({
+      top: 300,  
+      behavior: "smooth",  
+    });
+  }, []);
+
   const fetchBorrowedBooks = async () => {
-    ("sjkdkshdfkjj")
     try {
       setLoading(true);
       const res = await axios.get(
         `https://book-exchange-backend-alpha.vercel.app/users/${user.email}/borrowed-books`
       );
-      ("📚 Backend response:", res.data);
       setBorrowedBooks(res.data);
     } catch (err) {
       console.error("Error fetching borrowed books:", err);
@@ -25,7 +31,6 @@ const {user} = useAuth()
     }
   };
 
-  // ✅ Return a borrowed book
   const handleReturnBook = async (bookId) => {
     try {
       await axios.patch(
@@ -33,7 +38,7 @@ const {user} = useAuth()
         { bookId }
       );
       toast.success("Book returned successfully!");
-      fetchBorrowedBooks(); 
+      fetchBorrowedBooks();
     } catch (err) {
       console.error("Error returning book:", err);
       toast.error("Failed to return book.");
@@ -41,17 +46,12 @@ const {user} = useAuth()
   };
 
   useEffect(() => {
-    ("👤 Current user:", user);
-    if (user?.email) {
-      ("📧 Email found, fetching books...");
-      fetchBorrowedBooks();
-    } else {
-      ("⚠️ No email found");
-      setLoading(false);
-    }
+    if (user?.email) fetchBorrowedBooks();
+    else setLoading(false);
   }, [user]);
 
-  if (loading) return <p className="text-center py-6">Loading borrowed books...</p>;
+  if (loading)
+    return <p className="text-center py-6">Loading borrowed books...</p>;
 
   return (
     <div className="p-6 bg-white shadow rounded-xl">
@@ -60,11 +60,27 @@ const {user} = useAuth()
       {borrowedBooks.length === 0 ? (
         <p className="text-gray-500">You haven't borrowed any books yet.</p>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.2 }, // 👈 animate one by one
+            },
+          }}
+        >
           {borrowedBooks.map((book) => (
-            <div
+            <motion.div
               key={book._id}
               className="border rounded-lg shadow-sm p-4 flex flex-col justify-between hover:shadow-md transition"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
             >
               <div>
                 <img
@@ -80,24 +96,29 @@ const {user} = useAuth()
                 </p>
                 <p className="text-sm text-gray-600 mt-1">
                   Status:{" "}
-                  <span className={`font-medium ${
-                    book.status === 'available' ? 'text-green-600' : 
-                    'text-blue-600'
-                  }`}>
+                  <span
+                    className={`font-medium ${
+                      book.status === "available"
+                        ? "text-green-600"
+                        : "text-blue-600"
+                    }`}
+                  >
                     {book.status}
                   </span>
                 </p>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => handleReturnBook(book._id)}
                 className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition"
               >
                 Return
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );

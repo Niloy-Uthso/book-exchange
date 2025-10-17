@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router";
-
+import { motion } from "framer-motion";
 const HomeBooksSection = () => {
   const [books, setBooks] = useState([]);
 const navigate = useNavigate();
@@ -29,8 +29,19 @@ const navigate = useNavigate();
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {books.map((book) => (
-            <div
-              key={book._id}
+            <motion.div
+             key={book._id}
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ 
+      duration: 0.3, 
+      // delay: index * 0.1,
+      ease: "easeOut" 
+    }}
+    whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.15)" }}
+    whileTap={{ scale: 0.97 }}
+              
               className="bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden"
             >
               <img
@@ -62,19 +73,24 @@ const navigate = useNavigate();
              
           
             
-            </div>
+            </motion.div>
           ))}
         </div>
 
         
-        <div className="flex justify-center mt-10">
-          <Link
-            to="/allbooks"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full shadow transition"
-          >
-            See All Books
-          </Link>
-        </div>
+       <div className="flex justify-center mt-10">
+  <motion.div
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <Link
+      to="/allbooks"
+      className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full shadow transition block"
+    >
+      See All Books
+    </Link>
+  </motion.div>
+</div>
       </div>
     </section>
   );

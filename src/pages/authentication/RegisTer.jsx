@@ -25,13 +25,13 @@ const navigate = useNavigate();
 
     try {
       const result = await   createUser(email, password);
-    ;
+    
 
   await  updateProfile(result.user,{
     displayName:name,
     photoURL:photoURL
   })
-      ("✅ Registered:", result.user);
+       
       
       const newUser = {
       name,
@@ -54,7 +54,7 @@ const navigate = useNavigate();
     
     const user = result.user;
 
-    // prepare user info
+     
     const userInfo = {
       name: user.displayName,
       email: user.email,
@@ -62,10 +62,10 @@ const navigate = useNavigate();
        borrowedbookid:[]
     };
 
-    // send to backend
+     
     await axios.post("https://book-exchange-backend-alpha.vercel.app/users", userInfo);
 
-    // redirect after success
+     
     navigate(from || "/");
   } catch (err) {
      
@@ -78,14 +78,14 @@ const navigate = useNavigate();
     <div className="min-h-screen  flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 px-4 py-12">
       <div className="w-full  max-w-md bg-white/70 backdrop-blur-lg rounded-2xl shadow-xl p-8 border  border-gray-200">
        
-        {/* Title */}
+        
         <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">
           Create Your Account
         </h2>
 
-        {/* Form */}
+         
         <form onSubmit={handleRegister} className="space-y-5">
-          {/* Name */}
+         
           <div>
             <label className="block text-gray-700 font-medium mb-1">
               Name
@@ -99,7 +99,7 @@ const navigate = useNavigate();
             />
           </div>
 
-          {/* Email */}
+         
           <div>
             <label className="block text-gray-700 font-medium mb-1">
               Email
@@ -113,7 +113,7 @@ const navigate = useNavigate();
             />
           </div>
 
-          {/* Password */}
+           
           <div>
             <label className="block text-gray-700 font-medium mb-1">
               Password
@@ -127,7 +127,7 @@ const navigate = useNavigate();
             />
           </div>
 
-          {/* Photo URL */}
+          
           <div>
             <label className="block text-gray-700 font-medium mb-1">
               Photo URL
@@ -141,12 +141,12 @@ const navigate = useNavigate();
             />
           </div>
 
-          {/* Error */}
+ 
           {error && (
             <p className="text-red-500 text-sm text-center">{error}</p>
           )}
 
-          {/* Register Button */}
+         
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-2 rounded-lg shadow-md hover:opacity-90 transition"
@@ -155,7 +155,7 @@ const navigate = useNavigate();
           </button>
         </form>
 
-        {/* Google Login */}
+         
         <div className="mt-6">
           <button
             onClick={handleGoogleLogin}
@@ -170,7 +170,7 @@ const navigate = useNavigate();
           </button>
         </div>
 
-        {/* Links */}
+        
         <p className="text-sm text-center mt-6 text-gray-600">
           Already have an account?{" "}
           <Link to="/login" className="text-blue-600 font-semibold hover:underline">

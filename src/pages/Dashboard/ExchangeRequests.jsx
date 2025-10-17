@@ -9,6 +9,13 @@ const ExchangeRequests = () => {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
 
+   useEffect(() => {
+    window.scrollTo({
+      top: 300,  
+      behavior: "smooth",  
+    });
+  }, []);
+
   useEffect(() => {
     if (user?.email) {
       fetchMyBooks();
@@ -28,7 +35,7 @@ const ExchangeRequests = () => {
     }
   };
 
-  // Filter books that have requests
+  
   const booksWithRequests = myBooks.filter(
     book => book.requestedby && book.requestedby.length > 0
   );
@@ -42,7 +49,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
 
     setMessage("");
 
-    // FIXED: Optimistic UI update - remove the requester AND update status
+ 
     setMyBooks(prevBooks =>
       prevBooks.map(book =>
         book._id === bookId
@@ -56,7 +63,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
       )
     );
 
-    // 1) Update the book document
+     
     await axios.patch(`https://book-exchange-backend-alpha.vercel.app/allbooks/${bookId}`, {
       $set: {
         status: "exchanged",
@@ -67,7 +74,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
       },
     });
 
-    // 2) Add the bookId to requester's borrowedbookid array
+ 
     await axios.patch(
       `https://book-exchange-backend-alpha.vercel.app/users/${requesterEmail}/add-borrowed-book`,
       { bookId }
@@ -78,7 +85,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
     console.error("Error approving request:", error);
     setMessage("❌ Failed to approve request");
 
-    // revert UI by refetching
+    
     fetchMyBooks();
   }
 };
@@ -93,7 +100,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
       
       setMessage("");
       
-      // Update UI instantly - remove only the rejected requester
+       
       setMyBooks(prevBooks => 
         prevBooks.map(book => 
           book._id === bookId 
@@ -114,12 +121,12 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
     } catch (error) {
       console.error("Error rejecting request:", error);
       setMessage("❌ Failed to reject request");
-      // Revert UI changes if API call fails
+       
       fetchMyBooks();
     }
   };
 
-  // Render buttons based on book status
+  
   const renderActionButtons = (book, requester) => {
     if (book.status === "exchanged") {
       return (
@@ -166,7 +173,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      {/* Header */}
+      
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-2">Exchange Requests</h2>
         <p className="text-gray-600">
@@ -174,7 +181,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
         </p>
       </div>
 
-      {/* Status Message */}
+     
       {message && (
         <div className={`mb-6 p-4 rounded-lg ${
           message.includes("❌") ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
@@ -183,7 +190,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
         </div>
       )}
 
-      {/* Books with Requests */}
+      
       {booksWithRequests.length === 0 ? (
         <div className="text-center py-12 bg-white rounded-lg shadow-sm border">
           <div className="text-4xl mb-4">📚</div>
@@ -198,7 +205,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
         <div className="space-y-6">
           {booksWithRequests.map((book) => (
             <div key={book._id} className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
-              {/* Book Header */}
+             
               <div className="flex items-center gap-4 p-6 bg-gray-50 border-b">
                 <img
                   src={book.image}
@@ -232,7 +239,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
                 </div>
               </div>
 
-              {/* Requesters List - ALWAYS SHOW ALL REQUESTERS */}
+ 
               <div className="p-6">
                 <h4 className="text-lg font-semibold text-gray-700 mb-4">
                   {book.status === "exchanged" ? "All Requests" : "People who want to exchange:"}
@@ -244,7 +251,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
                       key={index}
                       className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                     >
-                      {/* Requester Info */}
+                       
                       <div className="flex items-center gap-3 flex-1">
                         <img
                           src={requester.photo || "https://i.ibb.co/3m1pM7n/default-avatar.png"}
@@ -272,7 +279,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
                         </div>
                       </div>
 
-                      {/* Action Buttons */}
+                      
                       {renderActionButtons(book, requester)}
                     </div>
                   ))}
@@ -283,7 +290,7 @@ const handleApproveRequest = async (bookId, requesterEmail, event) => {
         </div>
       )}
 
-      {/* Stats */}
+      
       {booksWithRequests.length > 0 && (
         <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
           <div className="flex flex-wrap gap-6 text-sm text-blue-800">

@@ -12,15 +12,17 @@ import {
   PlusSquare,
   BookCopy,  
 } from "lucide-react";
+import Stats from "../pages/Dashboard/Stats";
+import { motion } from "framer-motion";
 
 const DashboardLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // for desktop
-  const [isMobileOpen, setIsMobileOpen] = useState(false); // for mobile
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);  
+  const [isMobileOpen, setIsMobileOpen] = useState(false);  
 
   const toggleDesktopSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const toggleMobileSidebar = () => setIsMobileOpen(!isMobileOpen);
 
-  const handleLinkClick = () => setIsMobileOpen(false); // close on link click (mobile)
+  const handleLinkClick = () => setIsMobileOpen(false);  
 
   const menuItems = [
     {
@@ -48,7 +50,7 @@ const DashboardLayout = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50 text-gray-800">
-      {/* Sidebar */}
+      
       <div
         className={`fixed md:static z-30 top-0 left-0 h-full bg-white shadow-lg border-r transition-all duration-300 
           ${isMobileOpen ? "translate-x-0" : "-translate-x-full"} 
@@ -56,7 +58,7 @@ const DashboardLayout = () => {
           ${isSidebarOpen ? "w-64" : "w-20"}
         `}
       >
-        {/* Header */}
+        
         <div className="flex items-center justify-between p-4 border-b">
           {isSidebarOpen ? (
             <h2 className="text-xl font-bold text-blue-600">📚 Dashboard</h2>
@@ -69,7 +71,7 @@ const DashboardLayout = () => {
           </button>
         </div>
 
-        {/* Collapse button (desktop only) */}
+         
         <button
           onClick={toggleDesktopSidebar}
           className="hidden md:flex items-center justify-center w-full py-2 border-b text-gray-500 hover:text-blue-600"
@@ -77,7 +79,7 @@ const DashboardLayout = () => {
           {isSidebarOpen ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
         </button>
 
-        {/* Nav Links */}
+        
         <nav className="mt-4 space-y-1">
           {menuItems.map((item) => (
             <NavLink
@@ -110,9 +112,9 @@ const DashboardLayout = () => {
         </nav>
       </div>
 
-      {/* Main Section */}
+       
       <div className="flex-1 flex flex-col">
-        {/* Top bar (mobile only) */}
+        
         <div className="flex items-center justify-between bg-white shadow-sm p-4 md:hidden">
           <button onClick={toggleMobileSidebar}>
             <Menu size={24} />
@@ -120,9 +122,22 @@ const DashboardLayout = () => {
           <h2 className="text-lg font-semibold text-blue-600">Dashboard</h2>
         </div>
 
-        {/* Page Content */}
+        
         <main className="flex-1 p-6 transition-all duration-300">
+          <motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+>
+  <Stats></Stats>
+</motion.div>
+                <motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+>
           <Outlet />
+            </motion.div>
         </main>
       </div>
     </div>

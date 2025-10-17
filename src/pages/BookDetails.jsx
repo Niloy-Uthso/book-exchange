@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import axios from "axios";
 import emailjs from '@emailjs/browser';
 import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -10,10 +11,10 @@ const BookDetails = () => {
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
-  const [emailMessage, setEmailMessage] = useState(""); // Separate message for email
+  const [emailMessage, setEmailMessage] = useState("");  
   const [sendingEmail, setSendingEmail] = useState(false);
 
-  // Initialize EmailJS
+   
   useEffect(() => {
     emailjs.init("Iiyjrmb-ueGucPDl9");
   }, []);
@@ -37,7 +38,7 @@ const BookDetails = () => {
   try {
     setMessage("");
     
-    // Create requester data object
+     
     const requesterData = {
       name: user.displayName || user.email,
       email: user.email,
@@ -45,17 +46,22 @@ const BookDetails = () => {
       requestedAt: new Date().toISOString()
     };
 
-    // Update the book in backend - add to requestedby array
+    
     await axios.patch(`https://book-exchange-backend-alpha.vercel.app/allbooks/${book._id}`, {
       $push: { requestedby: requesterData }
     });
 
     setMessage(`📩 Request sent to ${book.owneremail}`);
-    
+    Swal.fire({
+  icon: 'success',
+  title: 'Request Sent!',
+  text: `Your book request has been sent to ${book.owneremail}`,
+  confirmButtonColor: '#10b981', // green-500
+});
   } catch (error) {
     console.error("Request failed:", error);
     
-    // Check if it's a duplicate request error
+    
     if (error.response?.data?.error === "You have already requested this book") {
       setMessage("❌ You have already requested this book");
     } else {
@@ -64,7 +70,7 @@ const BookDetails = () => {
   }
 };
 
-  // Separate function to send email message only
+   
   const handleSendMessage = async () => {
     try {
       setSendingEmail(true);
@@ -85,7 +91,7 @@ const BookDetails = () => {
         book_edition: book.edition,
         message: emailMessage,
         request_date: new Date().toLocaleDateString(),
-        app_url: "http://localhost:3000"
+        app_url: "https://book-exchange-dd208.web.app/"
       };
 
       await emailjs.send(
@@ -94,7 +100,7 @@ const BookDetails = () => {
         templateParams
       );
 
-      setMessage("✅ Message sent to book owner via email");
+      setMessage("✅ Message sent to book owner successfully!");
       setEmailMessage("");
       
     } catch (error) {
@@ -129,7 +135,7 @@ const BookDetails = () => {
    {
     (user?.email === book?.owneremail) ? <p className="text-gray-700 mb-3"><span className="font-medium">Owner Email:</span>  Your Book</p> : <p className="text-gray-700 mb-3"><span className="font-medium">Owner Email:</span> {book.owneremail}</p>
    }
-          {/* Request Book Button */}
+         
           <div className="mt-4">
             <button
               onClick={handleRequestBook}
@@ -139,7 +145,7 @@ const BookDetails = () => {
             </button>
           </div>
 
-          {/* Separate Message Field */}
+          
           <div className="mt-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-3">Send Message to Owner</h3>
             <textarea

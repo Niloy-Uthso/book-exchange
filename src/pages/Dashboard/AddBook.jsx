@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
@@ -9,12 +9,20 @@ const AddBook = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
  const { user } = useAuth();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 300,  
+      behavior: "smooth",  
+    });
+  }, []);
+
   const onSubmit = async (data) => {
     try {
       setLoading(true);
       setMessage("");
 
-      // simulate current user email (later you'll take it from auth context)
+ 
       const userEmail = user?.email ;
 
       const bookData = {

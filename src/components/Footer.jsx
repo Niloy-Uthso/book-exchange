@@ -86,7 +86,7 @@ Violation of these terms may result in account suspension.`,
             <li><Link to="/" className="hover:text-blue-400 transition">Home</Link></li>
             <li><Link to="/allbooks" className="hover:text-blue-400 transition">All Books</Link></li>
             <li><Link to="/about" className="hover:text-blue-400 transition">About Us</Link></li>
-            <li><Link to="/contact" className="hover:text-blue-400 transition">Contact</Link></li>
+            {/* <li><Link to="/contact" className="hover:text-blue-400 transition">Contact</Link></li> */}
           </ul>
         </div>
 
@@ -130,9 +130,9 @@ Violation of these terms may result in account suspension.`,
           </p>
 
           <div className="flex gap-4 mt-3">
-            <a href="#" className="hover:text-blue-400 transition" aria-label="Facebook"><Facebook size={20} /></a>
-            <a href="#" className="hover:text-blue-400 transition" aria-label="Twitter"><Twitter size={20} /></a>
-            <a href="#" className="hover:text-blue-400 transition" aria-label="Instagram"><Instagram size={20} /></a>
+            <a href="https://www.facebook.com/" className="hover:text-blue-400 transition" aria-label="Facebook"><Facebook size={20} /></a>
+            <a href="https://x.com/" className="hover:text-blue-400 transition" aria-label="Twitter"><Twitter size={20} /></a>
+            <a href="https://www.instagram.com/" className="hover:text-blue-400 transition" aria-label="Instagram"><Instagram size={20} /></a>
           </div>
         </div>
       </div>

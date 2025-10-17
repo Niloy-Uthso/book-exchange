@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import useAuth from "../../hooks/useAuth"; // assuming you already have this
+import useAuth from "../../hooks/useAuth";  
 import { Link } from "react-router";
 import { Pencil, Trash2, Eye } from "lucide-react";
 import Swal from "sweetalert2";
-
+import { motion } from "framer-motion";
 const MyBooks = () => {
   const { user } = useAuth();
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
+ useEffect(() => {
+    window.scrollTo({
+      top: 300,  
+      behavior: "smooth",  
+    });
+  }, []);
 
   useEffect(() => {
     if (user?.email) {
@@ -62,7 +68,7 @@ const MyBooks = () => {
     }
   };
 
-  // Filter books by search input (name or writer)
+  
   const filteredBooks = books.filter(
     (book) =>
       book.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -73,7 +79,7 @@ const MyBooks = () => {
     <div className="max-w-7xl mx-auto p-6">
       <h2 className="text-2xl font-bold text-blue-600 mb-6">My Books</h2>
 
-      {/* Search Bar */}
+      
       <div className="mb-6">
         <input
           type="text"
@@ -84,13 +90,21 @@ const MyBooks = () => {
         />
       </div>
 
-      {/* Book Cards */}
+      
       {filteredBooks.length === 0 ? (
         <p className="text-gray-600">No books found.</p>
       ) : (
+        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredBooks.map((book) => (
-            <div
+          <motion.div
+  whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.15)" }}
+  whileTap={{ scale: 0.97 }}
+  className="bg-white rounded-lg p-4"
+>
+  {/* Book content */}
+          <div
               key={book._id}
               className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow"
             >
@@ -130,6 +144,7 @@ const MyBooks = () => {
                 </div>
               </div>
             </div>
+            </motion.div>
           ))}
         </div>
       )}

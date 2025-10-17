@@ -3,7 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { FaGoogle } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
-// import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
+ 
 
 const Login = () => {
   const { signIn, signInwithgoogle, } = useAuth();
@@ -22,9 +23,14 @@ const Login = () => {
       await signIn(email, password);
       navigate(from);
     } catch (err) {
-      setError("Invalid email or password");
-      console.error(err);
-    }
+  setError("Invalid email or password");
+  Swal.fire({
+    icon: 'error',
+    title: 'Login Failed',
+    text: 'Invalid email or password',
+    confirmButtonColor: '#3085d6',
+  });
+}
   };
 
   const handleGoogleLogin = async () => {
@@ -32,22 +38,25 @@ const Login = () => {
     const result = await signInwithgoogle();
     const user = result.user;
 
-    // prepare user info
+    
     const userInfo = {
+
       name: user.displayName,
       email: user.email,
       photo: user.photoURL,
-       borrowedbookid:[]
+      borrowedbookid:[]
+
     };
      
 
-    // send to backend
+    
     await axios.post("https://book-exchange-backend-alpha.vercel.app/users", userInfo);
 
-    // redirect after success
+     
     navigate(from || "/");
   } catch (err) {
     setError(err.message);
+    
   }
 };
 

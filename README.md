@@ -8,7 +8,7 @@
 ![JWT](https://img.shields.io/badge/Auth-JWT-000000?logo=jsonwebtokens&logoColor=white)
 ![Axios](https://img.shields.io/badge/API-Axios-5A29E4?logo=axios&logoColor=white)
 ![Recharts](https://img.shields.io/badge/Charts-Recharts-8884d8?logo=recharts&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-blue)
+ 
 
 ---
 
